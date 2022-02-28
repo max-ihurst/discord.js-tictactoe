@@ -1,7 +1,4 @@
 {
-  "name": "discord.js-tictactoe",
-  "version": "1.0.0",
-  "description": "DiscordJS-TicTacToe",
   "main": "./src/index.js",
   "repository": "https://github.com/Coltzy/discord.js-tictactoe",
   "author": "Coltzy <coltzy@hotmail.com>",
