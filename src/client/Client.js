@@ -62,15 +62,19 @@ class client extends Client {
         const commands = [...this.commands.values()]
             .map((cmd) => cmd.data.toJSON());
 
-        rest.put(Routes.applicationGuildCommands(
-            this.client_id, 
-            this.guild_id
-        ), 
-        { 
-            body: commands
-        })
-            .then(() => console.log('Successfully registered application commands.'))
-            .catch(console.error);
+        try {
+            rest.put(Routes.applicationGuildCommands(
+                this.client_id, 
+                this.guild_id
+            ), 
+            { 
+                body: commands
+            });
+
+            console.log('Successfully registered application commands.');
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     init() {
