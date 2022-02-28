@@ -6,9 +6,7 @@ const { resolve } = require('path');
 
 class client extends Client {
     constructor({
-        token,
-        client_id,
-        guild_id
+        token
     } = {}) {
         super({
             intents: [
@@ -21,8 +19,6 @@ class client extends Client {
         this.cache = new Collection();
 
         this.token = token;
-        this.client_id = client_id;
-        this.guild_id = guild_id;
 
         this.once('ready', () => {
             this.load();
