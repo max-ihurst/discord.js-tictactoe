@@ -13,10 +13,12 @@ class client extends Client {
         super({
             intents: [
                 Intents.FLAGS.GUILDS,
+                Intents.FLAGS.GUILD_MEMBERS
             ]
         });
 
         this.commands = new Collection();
+        this.cache = new Collection();
 
         this.token = token;
         this.client_id = client_id;
@@ -34,7 +36,7 @@ class client extends Client {
         
             if (command) {
                 try {
-                    await command.execute(interaction);
+                    await command.execute(interaction, this);
                 } catch (error) {
                     console.error(error);
                     await interaction.reply(
