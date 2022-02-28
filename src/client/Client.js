@@ -65,9 +65,8 @@ class client extends Client {
             .map((cmd) => cmd.data.toJSON());
 
         try {
-            rest.put(Routes.applicationGuildCommands(
-                this.client_id, 
-                this.guild_id
+            rest.put(Routes.applicationCommands(
+                this.user.id
             ), 
             { 
                 body: commands
