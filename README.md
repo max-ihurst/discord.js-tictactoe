@@ -18,7 +18,13 @@ Exmaple: <br />
 - `cd discord.js-tictactoe`
 - `yarn install`
 - Then create a `.env` file.
-- Add an enviromental variables named `BOT_TOKEN=<INSERT-BOT-TOKEN>`
+- Add an enviromental variables
+
+```
+BOT_TOKEN=***
+CLIENT_ID=***
+GUILD_ID=***
+```
 
 # Author
 

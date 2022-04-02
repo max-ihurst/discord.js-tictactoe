@@ -5,4 +5,4 @@ const client = new Client({
     token: process.env.BOT_TOKEN
 });
 
-client.init();
+client.login(this.token);

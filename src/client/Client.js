@@ -1,8 +1,5 @@
 const { Client, Intents, Collection } = require('discord.js');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const glob = require('glob');
-const { resolve } = require('path');
+const fs = require('node:fs');
 
 class client extends Client {
     constructor({
@@ -20,10 +17,7 @@ class client extends Client {
 
         this.token = token;
 
-        this.once('ready', () => {
-            this.load();
-            console.log('Bot is ready!');
-        });
+        this.once('ready', () => console.log('Bot is ready!'));
 
         this.on('interactionCreate', async interaction => {
             if (!interaction.isCommand()) return;
@@ -41,41 +35,17 @@ class client extends Client {
                 }
             }
         });
+
+        this.register();
     }
 
-    load() {
-        const files = glob.sync('./src/commands/**/*.js');
+    register() {
+        const files = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 
         for (const path of files) {
-            const cmd = require(resolve(path));
+            const cmd = require(`../commands/${path}`);
             this.commands.set(cmd.data.name, cmd);
         }
-
-        this.deploy();
-    }
-
-    deploy() {
-        const rest = new REST({ version: '9' }).setToken(this.token);
-
-        const commands = [...this.commands.values()]
-            .map((cmd) => cmd.data.toJSON());
-
-        try {
-            rest.put(Routes.applicationCommands(
-                this.user.id
-            ), 
-            { 
-                body: commands
-            });
-
-            console.log('Successfully registered application commands.');
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    init() {
-        super.login(this.token);
     }
 }
 
