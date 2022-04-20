@@ -64,20 +64,18 @@ module.exports = {
 
     collector(game, client) {
         const { 
-            interaction: { channel }, 
-            current: { player },
+            interaction: { channel }
         } = game;
-        
-        const filter = i => i.user.id == player.user.id;
 
         const collector = channel.createMessageComponentCollector(
             { 
-                filter, time: 60000 * 5 
+                time: 60000 * 5 
             }
         );
 
         collector.on('collect', async (inter) => {
             const { player } = game.current;
+            if (inter.user.id != player.user.id) return;
 
             const { x, y } = this.decode(inter.customId);
             const { board } = game;
